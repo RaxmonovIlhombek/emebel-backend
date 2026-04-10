@@ -10,7 +10,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY    = env('SECRET_KEY', default='django-insecure-change-me')
 DEBUG         = env.bool('DEBUG', default=True)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', 'e-mebel.uz', 'www.e-mebel.uz', 'emebel-backend.onrender.com'])
 
 DJANGO_APPS = [
     'daphne',
