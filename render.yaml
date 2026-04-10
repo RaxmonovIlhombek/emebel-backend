@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: emebel-backend
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --no-input
+      python manage.py migrate
+    startCommand: gunicorn project.wsgi:application --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: project.settings.prod
+      - key: SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_HOSTS
+        value: emebel-backend.onrender.com
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: SECURE_SSL_REDIRECT
+        value: "False"
+      - key: DEBUG
+        value: "False"
+      - key: WEBAPP_URL
+        sync: false
+    plan: free

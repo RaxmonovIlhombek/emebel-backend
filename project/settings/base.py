@@ -157,10 +157,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://e-mebel.uz",
     "https://www.e-mebel.uz",
+    "https://emebel-frontend.netlify.app",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://e-mebel.uz",
     "https://www.e-mebel.uz",
+    "https://emebel-frontend.netlify.app",
+    "https://emebel-backend.onrender.com",
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
