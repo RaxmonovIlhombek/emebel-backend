@@ -121,7 +121,7 @@ STATIC_URL   = '/static/'
 STATIC_ROOT  = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static'] if (BASE_DIR / 'static').exists() else []
 STORAGES = {
-    'default':    {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'default':    {'BACKEND': 'storages.backends.s3.S3Storage'},
     'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage'},
 }
 MEDIA_URL  = '/media/'
@@ -132,6 +132,17 @@ TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN', default='')
 GROQ_API_KEY       = env('GROQ_API_KEY', default='')
 WEBAPP_URL         = env('WEBAPP_URL', default='')
 SITE_URL           = env('SITE_URL',   default='http://localhost:8000')
+
+# ─── S3 STORAGE (Supabase) ───────────────────────────────────────────
+AWS_ACCESS_KEY_ID       = env('AWS_ACCESS_KEY_ID',       default='')
+AWS_SECRET_ACCESS_KEY   = env('AWS_SECRET_ACCESS_KEY',   default='')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='')
+AWS_S3_ENDPOINT_URL     = env('AWS_S3_ENDPOINT_URL',     default='')
+AWS_S3_REGION_NAME      = env('AWS_S3_REGION_NAME',      default='ap-southeast-2')
+AWS_S3_FILE_OVERWRITE   = False
+AWS_QUERYSTRING_AUTH    = False
+AWS_S3_VERIFY           = True
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
