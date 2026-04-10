@@ -1,0 +1,6 @@
+Method,Name,Error,Occurrences
+GET,/api/products/,HTTPError('500 Server Error: Internal Server Error for url: /api/products/'),18
+GET,/api/dashboard/,HTTPError('500 Server Error: Internal Server Error for url: /api/dashboard/'),15
+GET,/api/orders/,HTTPError('500 Server Error: Internal Server Error for url: /api/orders/'),7
+GET,/api/categories/,HTTPError('500 Server Error: Internal Server Error for url: /api/categories/'),11
+GET,/api/finance/chart/,HTTPError('500 Server Error: Internal Server Error for url: /api/finance/chart/'),5

@@ -1,0 +1,9 @@
+.env
+db.sqlite3
+.idea/
+__pycache__/
+*.pyc
+# media/ commented out for demo images
+staticfiles/
+venv/
+*.log
