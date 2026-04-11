@@ -1,5 +1,14 @@
 from django.db import models
 from apps.common.models import BaseModel
+import os
+from django.utils.text import slugify
+
+def product_image_path(instance, filename):
+    ext = filename.split('.')[-1].lower()
+    cat_name = slugify(instance.category.name) if instance.category else 'kategoriyasiz'
+    name = slugify(instance.name) if instance.name else 'noma-lum'
+    new_filename = f"{name}_{instance.sku}.{ext}" if instance.sku else f"{name}.{ext}"
+    return os.path.join('products', cat_name, new_filename)
 
 
 class Category(BaseModel):
@@ -32,7 +41,7 @@ class Product(BaseModel):
     barcode       = models.CharField(max_length=100, blank=True, verbose_name="Barcode",
                                       help_text="EAN-13, QR yoki boshqa barcode raqami")
     description   = models.TextField(blank=True, verbose_name="Tavsif")
-    image         = models.ImageField(upload_to='products/', null=True, blank=True,
+    image         = models.ImageField(upload_to=product_image_path, null=True, blank=True,
                                        verbose_name="Rasm")
 
     cost_price    = models.DecimalField(max_digits=12, decimal_places=2, default=0,

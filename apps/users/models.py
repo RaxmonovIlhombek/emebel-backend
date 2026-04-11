@@ -1,6 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
+import os
+from django.utils.text import slugify
+
+def user_avatar_path(instance, filename):
+    ext = filename.split('.')[-1].lower()
+    role = instance.role or 'user'
+    username = slugify(instance.username) if instance.username else 'unknown'
+    new_filename = f"{role}_{username}.{ext}"
+    return os.path.join('avatars', role, new_filename)
 
 uz_phone_validator = RegexValidator(
     regex=r'^\+998\(\d{2}\) \d{3}-\d{2}-\d{2}$',
@@ -23,7 +32,7 @@ class User(AbstractUser):
         verbose_name="Telefon",
         help_text="Format: +998(90) 123-45-67"
     )
-    avatar           = models.ImageField(upload_to='avatars/', null=True, blank=True, verbose_name="Rasm")
+    avatar           = models.ImageField(upload_to=user_avatar_path, null=True, blank=True, verbose_name="Rasm")
     telegram_chat_id = models.CharField(max_length=20, blank=True, null=True, verbose_name="Telegram Chat ID")
     telegram_username = models.CharField(max_length=64, blank=True, null=True, verbose_name="Telegram Username (@siz)")
     client_profile   = models.OneToOneField(

@@ -1,6 +1,16 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from apps.common.models import BaseModel
+import os
+from django.utils.text import slugify
+
+def client_avatar_path(instance, filename):
+    ext = filename.split('.')[-1].lower()
+    name = slugify(instance.name) if instance.name else 'noma-lum'
+    # telefondagi + va bo'shliqlarni olib tashlaymiz
+    phone = "".join(filter(str.isdigit, instance.phone)) if instance.phone else 'no-phone'
+    new_filename = f"{name}_{phone}.{ext}"
+    return os.path.join('clients', new_filename)
 
 # +998(90) 123-45-67 formatini tekshiruvchi validator
 uz_phone_validator = RegexValidator(
@@ -31,7 +41,7 @@ class Client(BaseModel):
     address = models.TextField(blank=True, verbose_name="Ko'cha / uy")
     city = models.CharField(max_length=100, blank=True, verbose_name="Shahar")
 
-    avatar = models.ImageField(upload_to='clients/', blank=True, null=True, verbose_name="Rasm")
+    avatar = models.ImageField(upload_to=client_avatar_path, blank=True, null=True, verbose_name="Rasm")
     notes = models.TextField(blank=True, verbose_name="Izoh")
 
     # Dashboard uchun zarur bo'lgan ustun (Field)
