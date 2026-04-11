@@ -142,6 +142,11 @@ AWS_S3_REGION_NAME      = env('AWS_S3_REGION_NAME',      default='ap-southeast-2
 AWS_S3_FILE_OVERWRITE   = False
 AWS_QUERYSTRING_AUTH    = False
 AWS_S3_VERIFY           = True
+AWS_S3_ADDRESSING_STYLE = 'path'
+
+# Public URL uchun (Supabase public object API)
+_endpoint_clean = AWS_S3_ENDPOINT_URL.replace('https://', '').replace('/storage/v1/s3', '')
+AWS_S3_CUSTOM_DOMAIN = f"{_endpoint_clean}/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}"
 
 
 REST_FRAMEWORK = {
